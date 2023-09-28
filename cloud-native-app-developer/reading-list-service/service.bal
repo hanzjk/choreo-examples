@@ -78,7 +78,7 @@ function getUsersBooks(http:Headers headers) returns map<Book>|http:BadRequest|e
         if (jwtAssertion is error) {
             http:BadRequest badRequest = {
                 body: {
-                    "error": "Bad Request",
+                    "error": "Bad Request!",
                     "error_description": "Error while getting the JWT token"
                 }
             };

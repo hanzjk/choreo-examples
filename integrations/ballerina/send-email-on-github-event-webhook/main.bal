@@ -13,7 +13,9 @@ listener github:Listener webhookListener = new (config, httpListener);
 service github:IssuesService on webhookListener {
 
     remote function onOpened(github:IssuesEvent payload) returns error? {
-        //Not Implemented
+        sendemail:Client sendemailEp = check new ();
+        string sendEmailResponse = check sendemailEp->sendEmail(toEmail, subject = "Bug reported: ", body = "A bug has been reported. Please check ");
+        log:printInfo("Email sent  : " + sendEmailResponse);
     }
     remote function onClosed(github:IssuesEvent payload) returns error? {
         //Not Implemented
@@ -28,15 +30,8 @@ service github:IssuesService on webhookListener {
         //Not Implemented
     }
     remote function onLabeled(github:IssuesEvent payload) returns error? {
-        github:Label? label = payload.label;
-        if label is github:Label && label.name == "bug" {
+        //Not Implemented
 
-            sendemail:Client sendemailEp = check new ();
-            string sendEmailResponse = check sendemailEp->sendEmail(toEmail, subject = "Bug reported: " + payload.issue.title, body = "A bug has been reported. Please check " + payload.issue.html_url);
-            log:printInfo("Email sent  : " + sendEmailResponse);
-        } else {
-
-        }
     }
     remote function onUnlabeled(github:IssuesEvent payload) returns error? {
         //Not Implemented

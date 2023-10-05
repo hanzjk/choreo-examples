@@ -33,7 +33,7 @@ service github:IssuesService on webhookListener {
 
             sendemail:Client sendemailEp = check new ();
             string sendEmailResponse = check sendemailEp->sendEmail(toEmail, subject = "Bug reported: " + payload.issue.title, body = "A bug has been reported. Please check " + payload.issue.html_url);
-            log:printInfo("Email sent  " + sendEmailResponse);
+            log:printInfo("Email sent  : " + sendEmailResponse);
         } else {
 
         }
